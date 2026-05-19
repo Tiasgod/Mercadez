@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Cadastro - Mercadez</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" href="./images/icons/precinho_menor.png" type="image/png">
+  <link rel="stylesheet" href="./css/style.css">
+
+  <style>
+    /* ===== VARIÁVEIS ===== */
+    :root {
+      --amarelo: #ffa539;
+      --amarelo-hover: #e0922a;
+      --dark: #222;
+      --card-bg: #ffffff;
+      --input-focus: rgba(255, 165, 57, 0.35);
+    }
+
+    /* ===== LAYOUT GERAL ===== */
+    body {
+      background-color: #e8e8e8;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    /* ===== HEADER TOP ===== */
+    .top_header {
+      background-color: #fff;
+      border-bottom: 1px solid #eee;
+    }
+
+    .top_header nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 40px;
+    }
+
+    .top_header .precinho {
+      width: 48px;
+    }
+
+    .top_header .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top_header .nav-links a {
+      color: #333;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .top_header .nav-links a:hover {
+      color: var(--amarelo);
+    }
+
+    /* ===== HEADER BOTTOM ===== */
+    .bottom_header {
+      background-color: var(--amarelo);
+      padding: 0 20px;
+    }
+
+    .bottom_header nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      height: 52px;
+      position: relative;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .bottom_header .menu-lateral-btn {
+      font-size: 24px;
+      cursor: pointer;
+      position: absolute;
+      left: 0;
+    }
+
+    .bottom_header ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .bottom_header ul a {
+      color: #000;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .bottom_header .pesquisa {
+      position: relative;
+    }
+
+    .bottom_header .pesquisa input {
+      padding: 6px 36px 6px 14px;
+      border-radius: 20px;
+      border: none;
+      width: 380px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .bottom_header .pesquisa::after {
+      content: "🔍";
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      pointer-events: none;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .menu-lateral {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 260px;
+      height: 100%;
+      background-color: #111;
+      color: white;
+      padding: 20px;
+      transition: 0.3s;
+      z-index: 999;
+    }
+
+    .menu-lateral.ativo { left: 0; }
+
+    .menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .menu-header span { cursor: pointer; font-size: 20px; }
+
+    .menu-lateral a {
+      display: block;
+      color: #ddd;
+      text-decoration: none;
+      padding: 12px 10px;
+      border-radius: 5px;
+      margin-bottom: 6px;
+      transition: background 0.2s;
+    }
+
+    .menu-lateral a:hover { background: #333; }
+
+    /* ===== MAIN SECTION ===== */
+    .auth-section {
+      padding: 52px 20px 60px;
+    }
+
+    /* ===== DIVIDER VERTICAL ===== */
+    .divider-vertical {
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, #ccc 20%, #ccc 80%, transparent);
+      margin: 0 24px;
+      align-self: stretch;
+    }
+
+    /* ===== CARDS DE FORMULÁRIO ===== */
+    .auth-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.09);
+      padding: 40px 36px;
+      flex: 1;
+    }
+
+    .auth-card h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .auth-card .subtitle {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    /* ===== INPUTS ===== */
+    .auth-card .form-label {
+      font-weight: 600;
+      color: #444;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .auth-card .form-control {
+      border-radius: 8px;
+      border: 1.5px solid #ddd;
+      padding: 11px 14px;
+      font-size: 15px;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .auth-card .form-control:focus {
+      border-color: var(--amarelo);
+      box-shadow: 0 0 0 3px var(--input-focus);
+      outline: none;
+    }
+
+    /* ===== BOTÕES ===== */
+    .btn-mercadez {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.25s, transform 0.1s;
+    }
+
+    .btn-mercadez:active { transform: scale(0.98); }
+
+    .btn-amarelo {
+      background-color: var(--amarelo);
+      color: #000;
+    }
+
+    .btn-amarelo:hover { background-color: var(--amarelo-hover); color: #000; }
+
+    .btn-escuro {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .btn-escuro:hover { background-color: #111; color: #fff; }
+
+    /* ===== SEPARADOR HORIZONTAL MOBILE ===== */
+    .divider-horizontal {
+      display: none;
+      text-align: center;
+      margin: 32px 0;
+      color: #aaa;
+      font-size: 13px;
+      position: relative;
+    }
+
+    .divider-horizontal::before,
+    .divider-horizontal::after {
+      content: '';
+      display: inline-block;
+      width: 40%;
+      height: 1px;
+      background: #ccc;
+      vertical-align: middle;
+      margin: 0 8px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background-color: #383838;
+      color: white;
+      padding: 32px 40px;
+    }
+
+    footer .footer-nav {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    footer ul li { margin-bottom: 8px; }
+
+    footer ul li a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    footer ul li a:hover { color: var(--amarelo); }
+
+    footer .footer-title {
+      color: var(--amarelo);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    footer .btn-footer {
+      background: transparent;
+      border: 1.5px solid #ccc;
+      color: #ccc;
+      border-radius: 6px;
+      padding: 7px 16px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    footer .btn-footer:hover { border-color: var(--amarelo); color: var(--amarelo); }
+
+    footer .logos { display: flex; gap: 10px; margin-top: 12px; }
+
+    footer .logos img { width: 28px; height: 28px; }
+
+    /* ===== RESPONSIVIDADE ===== */
+    @media (max-width: 768px) {
+      .top_header .nav-links { gap: 14px; }
+      .top_header nav { padding: 10px 16px; }
+
+      .bottom_header .pesquisa input { width: 180px; }
+
+      .auth-wrapper {
+        flex-direction: column !important;
+      }
+
+      .divider-vertical { display: none; }
+      .divider-horizontal { display: block; }
+
+      .auth-card { padding: 30px 22px; }
+    }
+
+    @media (max-width: 480px) {
+      .top_header .nav-links li:not(:last-child) { display: none; }
+      .bottom_header .pesquisa input { width: 120px; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="pagina d-flex flex-column min-vh-100">
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <!-- Top Header -->
+    <div class="top_header">
+      <nav>
+        <a href="./index.html">
+          <img src="./images/icons/precinho_menor.png" class="precinho" alt="Mercadez">
+        </a>
+        <ul class="nav-links">
+          <li><a href="./fale_conosco.html">Fale Conosco</a></li>
+          <li><a href="./sobre.html">Sobre</a></li>
+          <li><a href="./login_cadastro.html">Login</a></li>
+          <li><a href="./cadastro_afiliado.html">Seja Afiliado</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Bottom Header -->
+    <div class="bottom_header">
+      <nav>
+        <div class="menu-lateral-btn" onclick="abrirMenu()">☰</div>
+        <ul>
+          <li><a href="./comparacao.html">Ofertas</a></li>
+          <li><a href="./categorias.html">Categorias</a></li>
+        </ul>
+        <div class="pesquisa">
+          <input type="text" placeholder="Buscar...">
+        </div>
+        <ul>
+          <li><a href="./notificacoes.html">Notificações</a></li>
+          <li><a href="./listas.html">Listas</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== SIDEBAR ===== -->
+  <div id="menuLateral" class="menu-lateral">
+    <div class="menu-header">
+      <span onclick="fecharMenu()">✖</span>
+      <h3 class="text-white mb-0">Menu</h3>
+    </div>
+    <a href="./index.html">Destaques</a>
+    <a href="./login_cadastro.html">Login / Cadastro</a>
+    <a href="./fale_conosco.html">Fale Conosco</a>
+    <a href="./sobre.html">Sobre</a>
+    <a href="./cadastro_afiliado.html">Seja Afiliado</a>
+  </div>
+
+  <!-- ===== MAIN ===== -->
+  <main class="flex-grow-1 auth-section">
+    <div class="container" style="max-width: 960px;">
+
+      <!-- Título da página -->
+      <div class="text-center mb-4">
+        <h1 class="fw-bold" style="font-size:22px; color:#333;">Bem-vindo ao Mercadez</h1>
+        <p style="color:#888; font-size:14px;">Acesse sua conta ou crie uma nova.</p>
+      </div>
+
+      <!-- Wrapper dos dois cards -->
+      <div class="d-flex align-items-stretch auth-wrapper">
+
+        <!-- ===== CARD LOGIN ===== -->
+        <div class="auth-card">
+          <h2>Login</h2>
+          <p class="subtitle">Acesse sua conta no Mercadez.</p>
+
+          <form id="formLogin" novalidate>
+            <div class="mb-3">
+              <label for="email_login" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email_login" placeholder="seu@email.com" required>
+            </div>
+            <div class="mb-4">
+              <label for="senha_login" class="form-label">Senha</label>
+              <input type="password" class="form-control" id="senha_login" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-mercadez btn-amarelo">Entrar</button>
+          </form>
+        </div>
+
+        <!-- Divisor vertical (desktop) / horizontal (mobile) -->
+        <div class="divider-vertical d-none d-md-block"></div>
+        <div class="divider-horizontal">ou</div>
+
+        <!-- ===== CARD CADASTRO ===== -->
+        <div class="auth-card">
+          <h2>Cadastro</h2>
+          <p class="subtitle">Crie uma conta para acessar o Mercadez.</p>
+
+          <form id="formCadastro" novalidate>
+            <div class="mb-3">
+              <label for="name_user" class="form-label">Nome de usuário</label>
+              <input type="text" class="form-control" id="name_user" placeholder="Informe seu nome" required>
+            </div>
+            <div class="mb-3">
+              <label for="email_user" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email_user" placeholder="seu@email.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="cpf_user" class="form-label">CPF</label>
+              <input type="text" class="form-control" id="cpf_user" placeholder="000.000.000-00" required>
+            </div>
+            <div class="mb-4">
+              <label for="senha_user" class="form-label">Senha</label>
+              <input type="password" class="form-control" id="senha_user" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-mercadez btn-amarelo">Cadastrar</button>
+          </form>
+        </div>
+
+      </div><!-- /auth-wrapper -->
+    </div><!-- /container -->
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-nav">
+      <div>
+        <span class="footer-title">Destaques</span>
+        <ul>
+          <li><a href="./login_cadastro.html">Cadastro</a></li>
+          <li><a href="./login_cadastro.html">Login</a></li>
+          <li><a href="./comparacao.html">Comparação</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer-title">Mercadez</span>
+        <ul>
+          <li><a href="./sobre.html">Sobre nós</a></li>
+          <li><a href="./cadastro_afiliado.html">Seja Afiliado</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer-title">Entre em contato</span>
+        <a href="./fale_conosco.html">
+          <button class="btn-footer">Fale conosco</button>
+        </a>
+        <div class="logos mt-2">
+          <a href="#"><img src="./images/icons/WhatsApp.svg.png" alt="WhatsApp"></a>
+          <a href="#"><img src="./images/icons/Instagram_icon.png.webp" alt="Instagram"></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /pagina -->
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Scripts do projeto -->
+<script src="./js/api.js"></script>
+<script src="./js/busca.js"></script>
+<script src="./js/login.js"></script>
+<script src="./js/cadastro_usuario.js"></script>
+
+<script>
+  function abrirMenu() {
+    document.getElementById('menuLateral').classList.add('ativo');
+  }
+  function fecharMenu() {
+    document.getElementById('menuLateral').classList.remove('ativo');
+  }
+</script>
+
+</body>
+</html>
