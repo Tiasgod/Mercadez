@@ -49,12 +49,15 @@ nav ul li a{
     align-items: center;
 }
 
-.bottom_header nav{
+.bottom_header nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0;
-    gap: 20px;
+    gap: 40px;
+    position: relative;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
 }
 
 .bottom_header ul{
@@ -85,6 +88,8 @@ nav ul li a{
     font-size: 14px;
     pointer-events: none;
 }
+
+
 .container{
     max-width: 1200px;
     margin: 0 auto;
@@ -1200,4 +1205,168 @@ h1, h2, h3{
 
 .ver-precos:hover {
     text-decoration: underline;
+}
+
+
+/* ================================================
+   LOGIN / CADASTRO — estilos migrados do <style>
+   ================================================ */
+
+/* ===== VARIÁVEIS ===== */
+:root {
+  --amarelo: #ffa539;
+  --amarelo-hover: #e0922a;
+  --dark: #222;
+  --card-bg: #ffffff;
+  --input-focus: rgba(255, 165, 57, 0.35);
+}
+
+/* ===== SEÇÃO PRINCIPAL ===== */
+.auth-section {
+  padding: 52px 20px 60px;
+}
+
+/* ===== DIVISOR VERTICAL (desktop) ===== */
+.divider-vertical {
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, #ccc 20%, #ccc 80%, transparent);
+  margin: 0 24px;
+  align-self: stretch;
+}
+
+/* ===== CARDS DE FORMULÁRIO ===== */
+.auth-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.09);
+  padding: 40px 36px;
+  flex: 1;
+}
+
+.auth-card h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+
+.auth-card .subtitle {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+/* ===== INPUTS DENTRO DOS CARDS ===== */
+.auth-card .form-label {
+  font-weight: 600;
+  color: #444;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.auth-card .form-control {
+  border-radius: 8px;
+  border: 1.5px solid #ddd;
+  padding: 11px 14px;
+  font-size: 15px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.auth-card .form-control:focus {
+  border-color: var(--amarelo);
+  box-shadow: 0 0 0 3px var(--input-focus);
+  outline: none;
+}
+
+/* ===== BOTÕES MERCADEZ ===== */
+.btn-mercadez {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.25s, transform 0.1s;
+}
+
+.btn-mercadez:active {
+  transform: scale(0.98);
+}
+
+.btn-amarelo {
+  background-color: var(--amarelo);
+  color: #000;
+}
+
+.btn-amarelo:hover {
+  background-color: var(--amarelo-hover);
+  color: #000;
+}
+
+.btn-escuro {
+  background-color: #333;
+  color: #fff;
+}
+
+.btn-escuro:hover {
+  background-color: #111;
+  color: #fff;
+}
+
+/* ===== DIVISOR HORIZONTAL (mobile) ===== */
+.divider-horizontal {
+  display: none;
+  text-align: center;
+  margin: 32px 0;
+  color: #aaa;
+  font-size: 13px;
+  position: relative;
+}
+
+.divider-horizontal::before,
+.divider-horizontal::after {
+  content: '';
+  display: inline-block;
+  width: 40%;
+  height: 1px;
+  background: #ccc;
+  vertical-align: middle;
+  margin: 0 8px;
+}
+
+/* ===== RESPONSIVIDADE — LOGIN/CADASTRO ===== */
+@media (max-width: 768px) {
+  .auth-wrapper {
+    flex-direction: column !important;
+  }
+
+  .divider-vertical {
+    display: none;
+  }
+
+  .divider-horizontal {
+    display: block;
+  }
+
+  .auth-card {
+    padding: 30px 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top_header .nav-links {
+  width: auto;
+  margin-left: auto;
+  padding-right: 0;
+  text-align: right;
+}
+
+.top_header .nav-links li:not(:last-child) {
+    display: none;
+  }
+
+  .bottom_header .pesquisa input {
+    width: 120px;
+  }
 }
