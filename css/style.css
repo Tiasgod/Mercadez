@@ -49,15 +49,12 @@ nav ul li a{
     align-items: center;
 }
 
-.bottom_header nav {
+.bottom_header nav{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
-    position: relative;
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 20px;
+    padding: 0;
+    gap: 20px;
 }
 
 .bottom_header ul{
@@ -88,8 +85,6 @@ nav ul li a{
     font-size: 14px;
     pointer-events: none;
 }
-
-
 .container{
     max-width: 1200px;
     margin: 0 auto;
@@ -97,39 +92,7 @@ nav ul li a{
     padding-top: 0px;
 }
 
-.footer{
-    background-color: rgb(56, 56, 56);
-}
-
-.footer nav{
-    justify-content: space-between;
-    display: flex;
-    align-items: start;
-}
-
-.footer nav ul li a{
-    display: flex;
-    color: white;
-}
-
-.lista-esquerda{
-    display:grid;
-    align-items:flex-start;
-}
-
-.titulo{
-    display: flex;
-    align-items: flex-start;
-    color: #ffa539;
-}
-
-.centro{
-    display:grid;
-}
-
-.lista-direita{
-    display: grid;
-}
+/* footer consolidado abaixo — ver bloco FOOTER DEFINITIVO */
 
 .botao{
     display: block;
@@ -148,7 +111,7 @@ nav ul li a{
 
 .logos a{
     display: flex;
-    align-items: flex;
+    align-items: center;
     gap: 15px;
     width: 32px;
     height: 32px;
@@ -228,42 +191,119 @@ main {
     min-height: 1px;
 }
 
-.footer {
-    background-color: rgb(56, 56, 56);
-    color: white;
-    padding: 20px;
-}
+/* ===== FOOTER DEFINITIVO ===== */
 
-.footer nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 40px;
-}
-
-.footer nav ul {
+/* aliases para compatibilidade com HTML existente */
+.lista-esquerda,
+.lista-direita,
+.centro {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     flex: 1;
     list-style: none;
     padding: 0;
+    margin: 0;
+}
+
+.footer {
+    background-color: rgb(56, 56, 56);
+    color: white;
+    padding: 32px 40px;
+}
+
+.footer nav {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    flex-wrap: wrap !important;
+    gap: 40px !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+.footer nav ul {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    flex: 1 !important;
+    width: auto !important;
+    list-style: none !important;
+    padding: 0 !important;
+    padding-right: 0 !important;
+    margin: 0 !important;
+    text-align: left !important;
 }
 
 .footer nav ul li {
     margin-bottom: 8px;
 }
 
-.footer a {
-    color: white;
-    text-decoration: none;
+/* Títulos das colunas: laranja */
+.footer nav ul li.titulo,
+.titulo {
+    color: #ffa539;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 12px;
 }
 
-.logos a img {
+/* Links brancos */
+.footer nav ul li a,
+.footer a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.footer nav ul li a:hover,
+.footer a:hover {
+    color: #ffa539;
+}
+
+/* Botão fale conosco */
+.footer .botao button,
+.footer button {
+    background: transparent;
+    border: 1.5px solid #ccc;
+    color: #ccc;
+    border-radius: 6px;
+    padding: 7px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.footer .botao button:hover,
+.footer button:hover {
+    border-color: #ffa539;
+    color: #ffa539;
+}
+
+/* Ícones sociais */
+.logos {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.logos a img,
+.footer .logos a img {
     width: 32px;
     height: 32px;
-    margin-right: 10px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .footer nav {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .logos {
+        justify-content: flex-start;
+    }
 }
 
 .painel-container{
